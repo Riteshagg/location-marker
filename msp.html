@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Leaflet Map with Multiple Markers</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+
+    <style>
+        #map {
+            height: 800px; /* Adjust the height of the map */
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Map container -->
+<div id="map"></div>
+
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+
+<script>
+    // Step 1: Create the map and set its initial view
+    var map = L.map('map').setView([20.5937, 78.9629], 5); // Centered at India
+
+    // Step 2: Add a tile layer to the map (OpenStreetMap)
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    // Step 3: List of coordinates (latitude, longitude) and popup content
+    var locations =[{
+        "latitude": 28.8689531,
+        "longitude": 78.74137089999999,
+        "popup": "232, Himgiri Colony Rd, Harthala, Moradabad, Uttar Pradesh 244001, India"
+    },
+        {
+            "latitude": 28.8288941,
+            "longitude": 78.7815774,
+            "popup": "111, Bilal Masjid Gali, Lajpat Nagar, Moradabad, Uttar Pradesh 244001, India"
+        },
+        {
+            "latitude": 28.8292107,
+            "longitude": 78.771001,
+            "popup": "1, 98, Prince Rd, near Chadha Cinema, Gandhi Nagar, Moradabad, Uttar Pradesh 244001, India"
+        },
+        {
+            "latitude": 28.8420503,
+            "longitude": 78.784748,
+            "popup": "44-2, 44-2, Kanth Rd, Babaryan, Faiz Ganj, Moradabad, Uttar Pradesh 244001, India"
+        },
+        {
+            "latitude": 28.8737264,
+            "longitude": 78.7345795,
+            "popup": "VPFM+FR8, Harthala Station Rd, Aajad Nagar, Harthala, Moradabad, Uttar Pradesh 244001, India"
+        },
+        {
+            "latitude": 28.8386998,
+            "longitude": 78.7703006,
+            "popup": "000, 88, Pat Pat Sarai Rd, Pat Pat Sarai, Moradabad, Uttar Pradesh 244001, India"
+        },
+        {
+            "latitude": 28.8300589,
+            "longitude": 78.7741506,
+            "popup": "RQJF+2MC, Asalatpura, Moradabad, Uttar Pradesh 244001, India"
+        },
+        {
+            "latitude": 28.8011857,
+            "longitude": 78.7620992,
+            "popup": "RQ26+FR8, Transport Nagar, Moradabad, Uttar Pradesh 244001, India"
+        },
+        {
+            "latitude": 28.8310164,
+            "longitude": 78.77745639999999,
+            "popup": "RQJG+CX4, Ismail Rd, Asalatpura, Moradabad, Uttar Pradesh 244001, India"
+        },
+        {
+            "latitude": 28.8314276,
+            "longitude": 78.77826379999999,
+            "popup": "Near Langde Ki Puliya, Eidgah Rd, Asalatpura, Moradabad, Uttar Pradesh 244001, India"
+        },
+        {
+            "latitude": 28.8317767,
+            "longitude": 78.7788194,
+            "popup": "RQJH+PG8, Seedhi Sarai Rd, near Langade Ki Puliya, Asalatpura, Moradabad, Uttar Pradesh 244001, India"
+        },
+        {
+            "latitude": 28.82245,
+            "longitude": 78.77856290000001,
+            "popup": "2, 2, Shivpuri Road, near Satyam Cineplex, Rehmat Nagar, Moradabad, Uttar Pradesh 244001, India"
+        },
+        {
+            "latitude": 28.8311104,
+            "longitude": 78.7773957,
+            "popup": "1, Ismail Rd, Asalatpura, Moradabad, Uttar Pradesh 244001, India"
+        },
+        {
+            "latitude": 28.8315859,
+            "longitude": 78.7782258,
+            "popup": "assalat pura Langade Ki Puliya, Asalatpura, Moradabad, Uttar Pradesh 244001, India"
+        },
+        {
+            "latitude": 28.833431,
+            "longitude": 78.7783178,
+            "popup": "Chowk, Seedhi Sarai Rd, Asalatpura, Moradabad, Uttar Pradesh 244001, India"
+        },
+        {
+            "latitude": 28.8342846,
+            "longitude": 78.7779145,
+            "popup": "1, amroha gate, RQMH+P57, Asalatpura, Moradabad, Uttar Pradesh 244001, India"
+        },
+        {
+            "latitude": 28.8611796,
+            "longitude": 78.7648306,
+            "popup": "P T C 2nd Le Same, Chakkar Ki Milak, Moradabad, Uttar Pradesh 244001, India"
+        },
+        {
+            "latitude": 28.8603828,
+            "longitude": 78.7688392,
+            "popup": "Gali No 6, Near, Gosiya Masjid Rd, Chakkar Ki Milak, Moradabad, Uttar Pradesh 244001, India"
+        },
+        {
+            "latitude": 28.8743308,
+            "longitude": 78.7406907,
+            "popup": "VPFR+P7M, Harthala, Moradabad, Uttar Pradesh 244001, India"
+        },
+        {
+            "latitude": 28.8769463,
+            "longitude": 78.741355,
+            "popup": "1, Kanth Rd, Ashiyana Colony, Harthala, Moradabad, Uttar Pradesh 244001, India"
+        },
+        {
+            "latitude": 28.8308001,
+            "longitude": 78.77654849999999,
+            "popup": "RQJG+CM9, Banatul Quresh Rd, Asalatpura, Moradabad, Uttar Pradesh 244001, India"
+        },
+        {
+            "latitude": 28.8398146,
+            "longitude": 78.8068886,
+            "popup": "24 Bn Pac, Rasulpur Nagla Khem, No 171, Jama Masjid Bridge Rd, Moradabad, Rasulpur Nagla Kham, Uttar Pradesh 244001, India"
+        },
+        {
+            "latitude": 28.8398146,
+            "longitude": 78.8068886,
+            "popup": "24 Bn Pac, Rasulpur Nagla Khem, No 171, Jama Masjid Bridge Rd, Moradabad, Rasulpur Nagla Kham, Uttar Pradesh 244001, India"
+        },
+        {
+            "latitude": 28.8292258,
+            "longitude": 78.7812014,
+            "popup": "RQHJ+MFR, Galshaheed Rd, Chauraha, Moradabad, Uttar Pradesh 244001, India"
+        },
+        {
+            "latitude": 28.874812,
+            "longitude": 78.74253949999999,
+            "popup": "VPFV+W2P, Harthala, Moradabad, Uttar Pradesh 244001, India"
+        },
+        {
+            "latitude": 28.8642595,
+            "longitude": 78.75593479999999,
+            "popup": "mda avantica, E-120, Avantika Colony, Main Bazar, Din Dayal Nagar, Moradabad, Uttar Pradesh 244001, India"
+        },
+        {
+            "latitude": 28.9256578,
+            "longitude": 78.7187292,
+            "popup": "WPG9+7F9, Kanwar Path, Mugalpur Urf Aghwanpur Mustahk, Uttar Pradesh 244001, India"
+        },
+        {
+            "latitude": 28.86795829999999,
+            "longitude": 78.7376974,
+            "popup": "shakti nagar , Railways Fatak Ke Pass Haddi Mil, Harthala, Moradabad, Uttar Pradesh 244001, India"
+        },
+        {
+            "latitude": 28.8272622,
+            "longitude": 78.8075309,
+            "popup": "Ekta Vihar, RRG5+W22, Rampur Rd, Moradabad, Ramnagar Mazra Ahatmali, Uttar Pradesh 244001, India"
+        },
+        {
+            "latitude": 28.8132165,
+            "longitude": 78.7921453,
+            "popup": "RQ7R+7VJ, Pital Nagri, Moradabad, Uttar Pradesh 244001, India"
+        },
+        {
+            "latitude": 28.816861,
+            "longitude": 78.7888555,
+            "popup": "HN180. saraswati vihar, Govind Nagar Rd, Govind Nagar Colony, Moradabad, Uttar Pradesh 244001, India"
+        },
+        {
+            "latitude": 28.8580443,
+            "longitude": 78.74275600000001,
+            "popup": "VP5V+646, Adarsh Colony, Moradabad, Uttar Pradesh 244001, India"
+        },
+        {
+            "latitude": 28.7427018,
+            "longitude": 78.6598636,
+            "popup": "242, sambhal, PMV5+2WX, Kamalpur Kafoorpur, Gumsani, Uttar Pradesh 244102, India"
+        },
+        {
+            "latitude": 28.8218904,
+            "longitude": 78.77974209999999,
+            "popup": "RQCH+QV5, Rampur Rd, near Peer Baba Dargha, Shivpuri, Moradabad, Uttar Pradesh 244001, India"
+        },
+        {
+            "latitude": 28.816861,
+            "longitude": 78.7888555,
+            "popup": "HN180. saraswati vihar, Govind Nagar Rd, Govind Nagar Colony, Moradabad, Uttar Pradesh 244001, India"
+        },
+        {
+            "latitude": 28.8386998,
+            "longitude": 78.7703006,
+            "popup": "kannari sarai, 88, Pat Pat Sarai Rd, Pat Pat Sarai, Moradabad, Uttar Pradesh 244001, India"
+        },
+        {
+            "latitude": 28.8365963,
+            "longitude": 78.73571790000001,
+            "popup": "RPPP+FC7 Mahatma Gandhi Park, Buddhi Vihar Phase 2 Rd, Buddhi Vihar Phase 2, Moradabad, Uttar Pradesh 244001, India"
+        },
+        {
+            "latitude": 28.8275458,
+            "longitude": 78.73497809999999,
+            "popup": "24, Delhi Rd, behind Hotel Drive Inn, Majhola, Moradabad, Uttar Pradesh 244001, India"
+        },
+        {
+            "latitude": 28.9162184,
+            "longitude": 78.7117808,
+            "popup": "355serua Dharampur, WP86+FPJ, Mugalpur Urf Aghwanpur Mustahk, Uttar Pradesh 244001, India"
+        },
+        {
+            "latitude": 29.1846359,
+            "longitude": 78.94678909999999,
+            "popup": "house no 16, 5WMW+VP7, Dhimar Khera, Uttarakhand 244714, India"
+        },
+        {
+            "latitude": 28.8113513,
+            "longitude": 78.77119979999999,
+            "popup": "RQ6C+GFW, Sambhal Rd, behind Oxford Public School, Chandausi, Karula, Moradabad, Uttar Pradesh 244001, India"
+        },
+        {
+            "latitude": 28.843219,
+            "longitude": 78.77946399999999,
+            "popup": "kisrol deewan khana, thana nagfani, RQVH+7QV, Kisrol, Moradabad, Uttar Pradesh 244001, India"
+        }];
+
+    // Step 4: Iterate through the array to create markers for each location
+    locations.forEach(function(location) {
+        var marker = L.marker([location.latitude, location.longitude]).addTo(map);
+        marker.bindPopup("<b>" + location.popup + "</b>");
+    });
+
+</script>
+
+</body>
+</html>
